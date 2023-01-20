@@ -26,7 +26,7 @@ jobs:
       - name: Find and Replace version
         uses: jacobtomlinson/gha-find-replace@v2
         with:
-          find: "4.0.1.\d+"
+          find: '4.0.1.\d+'
           replace: "${{github.run_number}}"
           regex: true,
           include: "test.txt"
