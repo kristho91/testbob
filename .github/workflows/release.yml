@@ -23,4 +23,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      
+      - name: Find and Replace version
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: "[VERSION]"
+          replace: "4.0.1.${{github.run_number}}"
+          include: "test.txt"
