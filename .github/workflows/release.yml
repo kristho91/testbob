@@ -60,7 +60,7 @@ jobs:
         with:
           commit_message: "Updated version to ${{env.NEW_VERSION}}"
 
-      - uses: avakar/tag-and-release@v1
+      - uses: kristho91/inm-tag-and-release@v1
         with:
           tag_name: ${{env.NEW_VERSION}}
         env:
