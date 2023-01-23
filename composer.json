@@ -1,0 +1,34 @@
+{
+    "name": "inmobile/inmobile-sdk",
+    "description": "The official PHP libary for interaction with the InMobile API",
+    "type": "library",
+	"license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "InMobile Aps",
+            "email": "support@inmobile.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inmobile\\InmobileSDK\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Inmobile\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "mockery/mockery": "^1.4",
+        "dms/phpunit-arraysubset-asserts": "^0.3.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
