@@ -52,7 +52,7 @@ jobs:
           find: '4.0.1.\d+'
           replace: ${{env.NEW_VERSION}}
           regex: true,
-          include: "test.txt"
+          include: "src/CurlClient.php"
           
       - name: Auto commit
         uses: stefanzweifel/git-auto-commit-action@v4
