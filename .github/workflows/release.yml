@@ -30,7 +30,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           find: '4.0.1.\d+'
-          replace: ${{NEW_VERSION}}
+          replace: "${NEW_VERSION}"
           regex: true,
           include: "test.txt"
           
@@ -41,6 +41,6 @@ jobs:
 
       - uses: avakar/tag-and-release@v1
         with:
-          tag_name: ${{NEW_VERSION}}
+          tag_name: "${NEW_VERSION}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
