@@ -6,6 +6,7 @@ on:
     branches: [ "main" ]
     
 env:
+  VERSION_PATTERN: '4.0.1.\d+'
   NEW_VERSION: "4.0.1.${{github.run_number}}"
 
 jobs:
@@ -49,7 +50,7 @@ jobs:
       - name: Find and Replace version
         uses: jacobtomlinson/gha-find-replace@v2
         with:
-          find: '4.0.1.\d+'
+          find: ${{env.VERSION_PATTERN}}
           replace: ${{env.NEW_VERSION}}
           regex: true,
           include: "src/CurlClient.php"
@@ -57,7 +58,7 @@ jobs:
       - name: Auto commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Updated version
+          commit_message: "Updated version to ${{env.NEW_VERSION}}"
 
       - uses: avakar/tag-and-release@v1
         with:
