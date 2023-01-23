@@ -1,29 +1,49 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Create release
+name: Run tests & create release
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
+    
 env:
   NEW_VERSION: "4.0.1.${{github.run_number}}"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  tests:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    strategy:
+      matrix:
+        php-versions: ['7.4', '8.0', '8.1', '8.2']
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: none
+          extensions: mysql
+          tools: composer:v2, phpunit
+
+      - name: Run composer install
+        run: composer install -n --prefer-dist
+
+      - name: PHPUnit Tests
+        run: phpunit --coverage-text
+        
+  release:
+    needs: tests
+    runs-on: ubuntu-latest
+
+    steps:
       - uses: actions/checkout@v3
       
       - name: Find and Replace version
