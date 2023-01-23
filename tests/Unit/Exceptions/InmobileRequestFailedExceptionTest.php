@@ -26,6 +26,7 @@ class InmobileRequestFailedExceptionTest extends TestCase
         $exception = new InmobileRequestFailedException($response);
 
         $this->assertInstanceOf(Response::class, $exception->getResponse());
+        $this->assertFalse(true);
     }
 
     public function test_create_from_response()
